@@ -13,12 +13,12 @@
 
 <body class="p-0 m-0 ">
    
-<!-- HEADER -->
+
 <header class="bg-white px-6 md:px-10 py-6 border-b border-gray-200">
 
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-        <!-- Logo + Title -->
+   
         <div class="flex items-center gap-4">
 
             <div class="bg-[#394B32] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-sm">
@@ -37,7 +37,7 @@
 
         </div>
 
-        <!-- Search -->
+       
         <div class="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl px-4 h-11 w-full lg:w-80 focus-within:border-[#394B32]">
 
             <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
@@ -56,12 +56,37 @@
 </header>
 
 
-<!-- ACTIONS + FILTERS -->
+<main>
+
+  <div id="loadingDiv" hidden
+    class="flex flex-col items-center justify-center py-10">
+
+    <i class="fa-solid fa-mug-hot fa-bounce text-4xl text-green-700"></i>
+
+    <p class="mt-4 text-lg font-semibold text-gray-700">
+        Loading Cards...
+    </p>
+
+    <p class="mt-1 text-sm text-gray-400">
+        Please wait a moment ☕
+    </p>
+
+</div>
+
+  
+    <div id="errorDiv"  class="flex justify-around p-4"  hidden>
+        <p class="text-2xl"> <i class="fa-solid fa-circle-xmark  text-[#de1111]" ></i> Une erreur est survenue.</p>
+        <button id="retry" class="bg-[#de1111] hover:bg-[#392323] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">Réessayer</button>
+    </div>
+
+ 
+  
+
+
 <section class="px-6 md:px-10 py-6">
 
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-        <!-- Add Button -->
         <button class="bg-[#394B32] hover:bg-[#293923] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">
 
             <i class="fa-solid fa-plus"></i>
@@ -70,7 +95,7 @@
         </button>
 
 
-        <!-- Filters -->
+       
         <div class="flex flex-col sm:flex-row gap-3">
 
             <select id="priorite"
@@ -153,6 +178,6 @@
 
 
 </section>
-   
+   </main>
 </body>
 </html>
