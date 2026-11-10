@@ -13,3 +13,10 @@ export function getCards() {
             console.log(error);
         });
 }
+
+
+
+
+// fetch("https://flowboard-api-virid.vercel.app/cards")
+// .then((response) => response.json())
+// .then((json) => console.log(json));

@@ -111,7 +111,7 @@
             À faire
         </h3>
 
-        <span id="todo-count" class="bg-amber-200 text-amber-800 rounded-full px-3 py-1 text-sm">0</span>
+        <span id="SpanCountTodo" class="bg-amber-200 text-amber-800 rounded-full px-3 py-1 text-sm">0</span>
     </div>
 
   
@@ -122,28 +122,35 @@
  
     <div id="EnCour" class="bg-blue-50 rounded-xl p-5 shadow-sm border border-blue-200">
 
-        <div class="flex items-center justify-between border-b border-blue-200 pb-3">
-            <h3 class="font-bold text-blue-700 flex items-center gap-2">
-                <i class="fa-solid fa-bars-progress"></i>
-                En cours
-            </h3>
-            <span class="bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm">0</span>
-        </div>
+    <div class="flex items-center justify-between border-b border-blue-200 pb-3">
+        <h3 class="font-bold text-blue-700 flex items-center gap-2">
+            <i class="fa-solid fa-bars-progress"></i>
+            En cours
+        </h3>
 
+        <span id="SpanCountInProgress" class="bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm">0</span>
     </div>
 
+    <div id="progress-list" class="mt-4 space-y-3"></div>
 
-    <div id="Termine" class="bg-green-50 rounded-xl p-5 shadow-sm border border-green-200">
+</div>
 
-        <div class="flex items-center justify-between border-b border-green-200 pb-3">
-            <h3 class="font-bold text-green-700 flex items-center gap-2">
-                <i class="fa-solid fa-list-check"></i>
-                Terminé
-            </h3>
-            <span class="bg-green-200 text-green-800 rounded-full px-3 py-1 text-sm">0</span>
-        </div>
 
+ <div id="Termine" class="bg-green-50 rounded-xl p-5 shadow-sm border border-green-200">
+
+    <div class="flex items-center justify-between border-b border-green-200 pb-3">
+        <h3 class="font-bold text-green-700 flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i>
+            Terminé
+        </h3>
+
+        <span id="SpanCountDone" class="bg-green-200 text-green-800 rounded-full px-3 py-1 text-sm">0</span>
     </div>
+
+    <div id="done-list" class="mt-4 space-y-3"></div>
+
+</div>
+
 
 </section>
    
