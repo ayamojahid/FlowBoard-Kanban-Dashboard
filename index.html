@@ -1,183 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanban Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-     <link rel="stylesheet" href="./src/output.css">
-    
-     <script type="module" src="js/ui.js" defer ></script>
+    <link rel="stylesheet" href="./src/output.css">
+
+    <script type="module" src="js/ui.js" defer></script>
 </head>
 
 
 <body class="p-0 m-0 ">
-   
 
-<header class="bg-white px-6 md:px-10 py-6 border-b border-gray-200">
 
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+    <header class="bg-white px-6 md:px-10 py-6 border-b border-gray-200">
 
-   
-        <div class="flex items-center gap-4">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 
-            <div class="bg-[#394B32] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-sm">
-                <i class="fa-solid fa-chart-simple text-xl"></i>
+
+            <div class="flex items-center gap-4">
+
+                <div class="bg-[#394B32] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-sm">
+                    <i class="fa-solid fa-chart-simple text-xl"></i>
+                </div>
+
+                <div>
+                    <h1 class="text-[#394B32] text-2xl md:text-3xl font-bold">
+                        Mon Tableau Kanban
+                    </h1>
+
+                    <p class="text-gray-500 text-sm mt-1">
+                        Suivez vos tâches en toute simplicité
+                    </p>
+                </div>
+
             </div>
 
-            <div>
-                <h1 class="text-[#394B32] text-2xl md:text-3xl font-bold">
-                    Mon Tableau Kanban
-                </h1>
 
-                <p class="text-gray-500 text-sm mt-1">
-                    Suivez vos tâches en toute simplicité
-                </p>
+            <div
+                class="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl px-4 h-11 w-full lg:w-80 focus-within:border-[#394B32]">
+
+                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+
+                <input type="text" id="search" placeholder="Rechercher une carte..."
+                    class="bg-transparent outline-none w-full text-sm">
+
             </div>
 
         </div>
 
-       
-        <div class="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl px-4 h-11 w-full lg:w-80 focus-within:border-[#394B32]">
-
-            <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
-
-            <input
-                type="text"
-                id="search"
-                placeholder="Rechercher une carte..."
-                class="bg-transparent outline-none w-full text-sm"
-            >
-
-        </div>
-
-    </div>
-
-</header>
+    </header>
 
 
-<main>
+    <main>
 
-  <div id="loadingDiv" hidden
-    class="flex flex-col items-center justify-center py-10">
+        <div id="loadingDiv" hidden class="flex flex-col items-center justify-center py-10">
 
-    <i class="fa-solid fa-mug-hot fa-bounce text-4xl text-green-700"></i>
+            <i class="fa-solid fa-mug-hot fa-bounce text-4xl text-green-700"></i>
 
-    <p class="mt-4 text-lg font-semibold text-gray-700">
-        Loading Cards...
-    </p>
+            <p class="mt-4 text-lg font-semibold text-gray-700">
+                Loading Cards...
+            </p>
 
-    <p class="mt-1 text-sm text-gray-400">
-        Please wait a moment ☕
-    </p>
-
-</div>
-
-  
-    <div id="errorDiv"  class="flex justify-around p-4"  hidden>
-        <p class="text-2xl"> <i class="fa-solid fa-circle-xmark  text-[#de1111]" ></i> Une erreur est survenue.</p>
-        <button id="retry" class="bg-[#de1111] hover:bg-[#392323] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">Réessayer</button>
-    </div>
-
- 
-  
-
-
-<section class="px-6 md:px-10 py-6">
-
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-        <button class="bg-[#394B32] hover:bg-[#293923] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">
-
-            <i class="fa-solid fa-plus"></i>
-            Nouvelle Carte
-
-        </button>
-
-
-       
-        <div class="flex flex-col sm:flex-row gap-3">
-
-            <select id="priorite"
-                class="bg-white border border-gray-200 rounded-xl px-4 h-11 text-sm text-gray-600 outline-none focus:border-[#394B32]">
-
-                <option value="all">Toutes les priorités</option>
-                <option value="high">Haute</option>
-                <option value="medium">Moyenne</option>
-                <option value="low">Basse</option>
-
-            </select>
-
-
-            <select id="assignee"
-                class="bg-white border border-gray-200 rounded-xl px-4 h-11 text-sm text-gray-600 outline-none focus:border-[#394B32]">
-
-                <option value="all">Tous les membres</option>
-                <option value="Sara">Sara</option>
-                <option value="Ahmed">Ahmed</option>
-                <option value="Aya">Aya</option>
-
-            </select>
+            <p class="mt-1 text-sm text-gray-400">
+                Please wait a moment ☕
+            </p>
 
         </div>
 
-    </div>
 
-</section>
-
- <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-
-   
-  <div id="AFaire" class="bg-amber-50 rounded-xl p-5 shadow-sm border border-amber-200">
-
-    <div class="flex items-center justify-between border-b border-amber-200 pb-3">
-        <h3 class="font-bold text-amber-700 flex items-center gap-2">
-            <i class="fa-solid fa-pen-to-square"></i>
-            À faire
-        </h3>
-
-        <span id="SpanCountTodo" class="bg-amber-200 text-amber-800 rounded-full px-3 py-1 text-sm">0</span>
-    </div>
-
-  
-    <div id="todo-list" class="mt-4 space-y-3"></div>
-
-</div>
-
- 
-    <div id="EnCour" class="bg-blue-50 rounded-xl p-5 shadow-sm border border-blue-200">
-
-    <div class="flex items-center justify-between border-b border-blue-200 pb-3">
-        <h3 class="font-bold text-blue-700 flex items-center gap-2">
-            <i class="fa-solid fa-bars-progress"></i>
-            En cours
-        </h3>
-
-        <span id="SpanCountInProgress" class="bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm">0</span>
-    </div>
-
-    <div id="progress-list" class="mt-4 space-y-3"></div>
-
-</div>
+        <div id="errorDiv" class="flex justify-around p-4" hidden>
+            <p class="text-2xl"> <i class="fa-solid fa-circle-xmark  text-[#de1111]"></i> Une erreur est survenue.</p>
+            <button id="retry"
+                class="bg-[#de1111] hover:bg-[#392323] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">Réessayer</button>
+        </div>
 
 
- <div id="Termine" class="bg-green-50 rounded-xl p-5 shadow-sm border border-green-200">
-
-    <div class="flex items-center justify-between border-b border-green-200 pb-3">
-        <h3 class="font-bold text-green-700 flex items-center gap-2">
-            <i class="fa-solid fa-list-check"></i>
-            Terminé
-        </h3>
-
-        <span id="SpanCountDone" class="bg-green-200 text-green-800 rounded-full px-3 py-1 text-sm">0</span>
-    </div>
-
-    <div id="done-list" class="mt-4 space-y-3"></div>
-
-</div>
 
 
-</section>
-   </main>
+
+        <section class="px-6 md:px-10 py-6">
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                <button id="Bouton-Ajout-Card"
+                    class= " cursor-pointer bg-[#394B32] hover:bg-[#293923] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">
+
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvelle Carte
+
+                </button>
+
+
+
+                <div class="flex flex-col sm:flex-row gap-3">
+
+                    <select id="priorite"
+                        class="bg-white border border-gray-200 rounded-xl px-4 h-11 text-sm text-gray-600 outline-none focus:border-[#394B32]">
+
+                        <option value="all">Toutes les priorités</option>
+                        <option value="high">Haute</option>
+                        <option value="medium">Moyenne</option>
+                        <option value="low">Basse</option>
+
+                    </select>
+
+
+                    <select id="assignee"
+                        class="bg-white border border-gray-200 rounded-xl px-4 h-11 text-sm text-gray-600 outline-none focus:border-[#394B32]">
+
+                        <option value="all">Tous les membres</option>
+                        <option value="Sara">Sara</option>
+                        <option value="Ahmed">Ahmed</option>
+                        <option value="Aya">Aya</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+
+
+            <div id="AFaire" class="bg-amber-50 rounded-xl p-5 shadow-sm border border-amber-200">
+
+                <div class="flex items-center justify-between border-b border-amber-200 pb-3">
+                    <h3 class="font-bold text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        À faire
+                    </h3>
+
+                    <span id="SpanCountTodo" class="bg-amber-200 text-amber-800 rounded-full px-3 py-1 text-sm">0</span>
+                </div>
+
+
+                <div id="todo-list" class="mt-4 space-y-3"></div>
+
+            </div>
+
+
+            <div id="EnCour" class="bg-blue-50 rounded-xl p-5 shadow-sm border border-blue-200">
+
+                <div class="flex items-center justify-between border-b border-blue-200 pb-3">
+                    <h3 class="font-bold text-blue-700 flex items-center gap-2">
+                        <i class="fa-solid fa-bars-progress"></i>
+                        En cours
+                    </h3>
+
+                    <span id="SpanCountInProgress"
+                        class="bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm">0</span>
+                </div>
+
+                <div id="progress-list" class="mt-4 space-y-3"></div>
+
+            </div>
+
+
+            <div id="Termine" class="bg-green-50 rounded-xl p-5 shadow-sm border border-green-200">
+
+                <div class="flex items-center justify-between border-b border-green-200 pb-3">
+                    <h3 class="font-bold text-green-700 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i>
+                        Terminé
+                    </h3>
+
+                    <span id="SpanCountDone" class="bg-green-200 text-green-800 rounded-full px-3 py-1 text-sm">0</span>
+                </div>
+
+                <div id="done-list" class="mt-4 space-y-3"></div>
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+        <dialog id="cardModal"
+            class="fixed inset-0 m-auto w-full max-w-lg rounded-xl p-0 shadow-xl backdrop:bg-black/50">
+            <div class="p-6">
+
+
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">
+                        <i class="fa-solid fa-clipboard-list text-green-700 mr-2"></i>
+                        Nouvelle carte
+                    </h2>
+
+
+                </div>
+
+
+                <form id="cardForm" class="space-y-4">
+
+
+                    <div>
+                        <label for="title" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Titre *
+                        </label>
+                        <input type="text" id="title" name="title" placeholder="Ex: Apprendre JavaScript" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600">
+                    </div>
+
+
+                    <div>
+                        <label for="description" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Description *
+                        </label>
+                        <textarea id="description" name="description" rows="3" placeholder="Décrire la tâche..."
+                            required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600"></textarea>
+                    </div>
+
+
+                    <div>
+                        <label for="assignee" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Assignee *
+                        </label>
+                        <input type="text" id="assignee" name="assignee" placeholder="Nom du responsable" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600">
+                    </div>
+
+
+                    <div>
+                        <label for="status" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Status *
+                        </label>
+                        <select id="status" name="status" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white">
+                            <option value="">Choisir un statut</option>
+                            <option value="todo">To Do</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="priority" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Priority *
+                        </label>
+                        <select id="priority" name="priority" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white">
+                            <option value="">Choisir une priorité</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="dueDate" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Due Date *
+                        </label>
+                        <input type="date" id="dueDate" name="dueDate" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                    </div>
+
+
+                    <div>
+                        <label for="tags" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Tags
+                        </label>
+                        <input type="text" id="tags" name="tags" placeholder="HTML, CSS, JavaScript"
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600">
+                        <p class="text-xs text-gray-400 mt-1">
+                            Sépare les tags par des virgules.
+                        </p>
+                    </div>
+
+
+                    <div class="flex justify-end gap-3 pt-4 border-t">
+
+                        <button type="button" id="cancelModal"
+                            class="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
+                            Annuler
+                        </button>
+
+                        <button type="submit"
+                            class="px-4 py-2 rounded-lg bg-green-700 text-white hover:bg-green-800 transition">
+                            <i class="fa-solid fa-plus mr-1"></i>
+                            Ajouter la carte
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+        </dialog>
+
+
+    </main>
 </body>
+
 </html>

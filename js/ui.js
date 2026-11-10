@@ -15,7 +15,7 @@ console.log(retry);
 
 function loadCards() {
       errordiv.hidden = true;
-      
+
       loadingDiv.hidden=false;
 
     getCards()
@@ -93,18 +93,17 @@ function AfficherCards() {
         div.className = "bg-white p-4 rounded-lg shadow-sm border border-gray-200";
 
         if (opt.status === "todo") {
-            DonneAffiche(todoList, opt)
+             AfficherTaskCard(todoList, opt)
 
         }
 
-
         if (opt.status === "in-progress") {
-            DonneAffiche(progressList, opt)
+             AfficherTaskCard(progressList, opt)
 
         }
 
         if (opt.status === "done") {
-            DonneAffiche(doneList, opt)
+             AfficherTaskCard(doneList, opt)
         }
     });
 
@@ -112,32 +111,63 @@ function AfficherCards() {
 }
 
 
-function DonneAffiche(ListType, opt) {
+
+function  AfficherTaskCard(ListType, opt) {
 
     const div = document.createElement("div");
     const titleCard = document.createElement("h2");
-    div.className = "bg-white p-4 rounded-lg shadow-sm border border-gray-200";
 
+    div.className = "bg-white p-4 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition";
 
+    titleCard.className = "font-bold text-lg text-gray-800 mb-3";
     titleCard.textContent = opt.title;
 
     div.appendChild(titleCard);
-    ListType.appendChild(div);
+
     div.innerHTML += `
-       
-        <strong>  Assignee: ${opt.assignee}     </strong>
-        <p>Description :  ${opt.description}  </p>
-        <p> Statue : ${opt.status} </p>
-        <p> Priority : ${opt.priority}  </p>
-        <p> Date : ${opt.dueDate}  </p> `
+        <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700">
+            ${opt.status}
+        </span>
+
+        <p class="text-sm text-gray-500 mb-3 mt-2">
+            ${opt.description}
+        </p>
+
+        <div class="flex justify-between text-sm mb-3">
+            <strong>👤 ${opt.assignee}</strong>
+       <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold">
+    ${opt.priority}
+</span>
+        </div>
+
+        <p class="text-xs text-gray-400 mb-3">📅 ${opt.dueDate}</p>
+    `;
+
     opt.tags.forEach((opt) => {
 
-        const p = document.createElement("p");
+        const p = document.createElement("span");
 
+        p.className = "inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-md mr-2 mb-2";
 
-        div.innerHTML += `
-        <p>Tags :  ${opt}  </p>
-            
-            `;
-    })
+        p.textContent = `#${opt}`;
+
+        div.appendChild(p);
+    });
+
+    ListType.appendChild(div);
 }
+
+
+// partir pour model
+function Model() {
+    const BoutonAjoutCard =document.getElementById("Bouton-Ajout-Card");
+    BoutonAjoutCard.addEventListener("click", () => {
+    cardModal.showModal();
+});
+    const cancelModal = document.getElementById("cancelModal");
+cancelModal.addEventListener("click" , ()=>{
+    cardModal.close();
+})
+
+}
+Model()
