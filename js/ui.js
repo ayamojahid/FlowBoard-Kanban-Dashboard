@@ -159,6 +159,7 @@ function  AfficherTaskCard(ListType, opt) {
 
 
 // partir pour model
+const cardModal =document.getElementById("cardModal");
 function Model() {
     const BoutonAjoutCard =document.getElementById("Bouton-Ajout-Card");
     BoutonAjoutCard.addEventListener("click", () => {
@@ -175,19 +176,33 @@ Model();
 
 
 
+const titleInput = document.querySelector("#title");
+const assigneeInput = document.querySelector("#assignee");
+
+
+const tagsInput = document.querySelector("#tags");
+const dueDateInput = document.querySelector("#dueDate");
+
+const priorityInput = document.querySelector("#priority");
+const statusInput = document.querySelector("#status");
+
+const descriptionText = document.querySelector("#description");
+
 
 function RejexModel() {
 
-    const titleInput = document.querySelector("#title");
-    const assigneeInput = document.querySelector("#assignee");
+   
     console.log(assigneeInput)
-    const tagsInput = document.querySelector("#tags");
+   
 
     const RejexText = /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/;
+    const RejexTags = /^[a-zA-ZÀ-ÿ\s,'-]{2,100}$/;
 
     const ValidTitle = RejexText.test(titleInput.value.trim());
     const ValidAssigne = RejexText.test(assigneeInput.value.trim());
-    const ValidTags = RejexText.test(tagsInput.value.trim());
+    const ValidTags = RejexTags.test(tagsInput.value.trim());
+   
+
 
     // Les messages d'erreur
     const mesageErrorTitle = document.getElementById("mesageErrorTitle");
@@ -221,8 +236,52 @@ function RejexModel() {
         mesageErrorTags.textContent = "Invalid Tags";
     }
 
+
+    // valider la date 
+    const NewdueDate = new Date(dueDateInput.value)
+    const CurrentDate = new Date();
+ 
+    NewdueDate.setHours(0,0,0,0);
+    CurrentDate.setHours(0,0,0,0);
+
+    const ValiditeDate = NewdueDate >=CurrentDate;
+    console.log(ValiditeDate);
+
+        if (ValiditeDate) {
+        dueDateInput.style.borderColor = "green";
+      
+    } else {
+        dueDateInput.style.borderColor = "red";
+   
+    }
     
-    return ValidTitle && ValidAssigne && ValidTags;
+    // valider les selects
+    
+    
+    const validatePriority = priorityInput.value !== "";
+    console.log(validatePriority);
+
+     const validateStatus = statusInput.value !== "";
+    console.log(validateStatus);
+
+        if (validatePriority) {
+        priorityInput.style.borderColor = "green";
+      
+    } else {
+        priorityInput.style.borderColor = "red";
+   
+    }
+
+        if (validateStatus) {
+        statusInput.style.borderColor = "green";
+   
+    } else {
+        statusInput.style.borderColor = "red";
+       
+    }
+
+    
+    return ValidTitle && ValidAssigne && ValidTags && ValiditeDate && validateStatus && validatePriority;
 }
 
 
@@ -231,13 +290,37 @@ function RejexModel() {
 
 
 
-const AddCart = document.getElementById("AddCart");
-AddCart.addEventListener("click" , (e)=>{
+const cardForm = document.getElementById("cardForm");
+
+cardForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    RejexModel();
 
-})
+    if (RejexModel()) {
+// console.log("hey");
 
+        const newCard = {
+            title: titleInput.value,
+            assignee: assigneeInput.value,
+            tags: tagsInput.value.split(","),
+            description:descriptionText.value,
+            dueDate: dueDateInput.value,
+            priority: priorityInput.value,
+            status: statusInput.value
+        };
 
+        state.cards.push(newCard);
+        console.log("ana new" , newCard);
+        console.log("satate " , state)
+        CounterCards();
+        AfficherCards();
 
+        cardForm.reset();
+        cardModal.close();
+  
+
+    }
+    
+});
+
+const BtnAddCard = document.querySelector("#Btn-AddCard");
 
