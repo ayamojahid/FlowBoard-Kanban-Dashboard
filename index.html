@@ -56,9 +56,12 @@
 
     <main>
 
+<!-- section GESTion ds erreurs et de loading page -->
+        <section>
+         
         <div id="loadingDiv" hidden class="flex flex-col items-center justify-center py-10">
 
-            <i class="fa-solid fa-mug-hot fa-bounce text-4xl text-green-700"></i>
+            <i class="fa-solid fa-sync fa-spin fa-bounce text-4xl text-green-700"></i>
 
             <p class="mt-4 text-lg font-semibold text-gray-700">
                 Loading Cards...
@@ -77,7 +80,7 @@
                 class="bg-[#de1111] hover:bg-[#392323] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">Réessayer</button>
         </div>
 
-
+        </section>
 
 
 
@@ -108,7 +111,7 @@
                     </select>
 
 
-                    <select id="assignee"
+                    <select 
                         class="bg-white border border-gray-200 rounded-xl px-4 h-11 text-sm text-gray-600 outline-none focus:border-[#394B32]">
 
                         <option value="all">Tous les membres</option>
@@ -183,6 +186,8 @@
 
 
 
+
+
         <dialog id="cardModal"
             class="fixed inset-0 m-auto w-full max-w-lg rounded-xl p-0 shadow-xl backdrop:bg-black/50">
             <div class="p-6">
@@ -205,8 +210,9 @@
                         <label for="title" class="block text-sm font-semibold text-gray-700 mb-1">
                             Titre *
                         </label>
-                        <input type="text" id="title" name="title" placeholder="Ex: Apprendre JavaScript" required
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600">
+                        <input type="text" id="title" name="title" placeholder="Ex: Apprendre JavaScript" 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none ">
+                            <small id="mesageErrorTitle" class="text-red-500 " ></small>
                     </div>
 
 
@@ -216,7 +222,7 @@
                         </label>
                         <textarea id="description" name="description" rows="3" placeholder="Décrire la tâche..."
                             required
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600"></textarea>
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none "></textarea>
                     </div>
 
 
@@ -226,6 +232,8 @@
                         </label>
                         <input type="text" id="assignee" name="assignee" placeholder="Nom du responsable" required
                             class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600">
+                            <small id="mesageErrorAssigne" class="text-red-500 " ></small>
+
                     </div>
 
 
@@ -272,9 +280,10 @@
                         </label>
                         <input type="text" id="tags" name="tags" placeholder="HTML, CSS, JavaScript"
                             class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-green-600">
-                        <p class="text-xs text-gray-400 mt-1">
-                            Sépare les tags par des virgules.
-                        </p>
+                              
+                          
+                            <small id="mesageErrorTags" class="text-red-500" ></small>
+
                     </div>
 
 
@@ -285,7 +294,7 @@
                             Annuler
                         </button>
 
-                        <button type="submit"
+                        <button type="submit" id="AddCart"
                             class="px-4 py-2 rounded-lg bg-green-700 text-white hover:bg-green-800 transition">
                             <i class="fa-solid fa-plus mr-1"></i>
                             Ajouter la carte

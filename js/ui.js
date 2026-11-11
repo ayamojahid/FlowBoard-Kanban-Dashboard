@@ -170,4 +170,74 @@ cancelModal.addEventListener("click" , ()=>{
 })
 
 }
-Model()
+Model();
+
+
+
+
+
+function RejexModel() {
+
+    const titleInput = document.querySelector("#title");
+    const assigneeInput = document.querySelector("#assignee");
+    console.log(assigneeInput)
+    const tagsInput = document.querySelector("#tags");
+
+    const RejexText = /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/;
+
+    const ValidTitle = RejexText.test(titleInput.value.trim());
+    const ValidAssigne = RejexText.test(assigneeInput.value.trim());
+    const ValidTags = RejexText.test(tagsInput.value.trim());
+
+    // Les messages d'erreur
+    const mesageErrorTitle = document.getElementById("mesageErrorTitle");
+    const mesageErrorAssigne = document.getElementById("mesageErrorAssigne");
+    const mesageErrorTags = document.getElementById("mesageErrorTags");
+
+    // Validation d titre
+    if (ValidTitle) {
+        titleInput.style.borderColor = "green";
+        mesageErrorTitle.textContent = "";
+    } else {
+        titleInput.style.borderColor = "red";
+        mesageErrorTitle.textContent = "Invalid Title";
+    }
+
+    // Validation d assigne
+    if (ValidAssigne) {
+        assigneeInput.style.borderColor = "green";
+        mesageErrorAssigne.textContent = "";
+    } else {
+        assigneeInput.style.borderColor = "red";
+        mesageErrorAssigne.textContent = "Invalid Assignee";
+    }
+
+    // Validation des tags
+    if (ValidTags) {
+        tagsInput.style.borderColor = "green";
+        mesageErrorTags.textContent = "";
+    } else {
+        tagsInput.style.borderColor = "red";
+        mesageErrorTags.textContent = "Invalid Tags";
+    }
+
+    
+    return ValidTitle && ValidAssigne && ValidTags;
+}
+
+
+
+
+
+
+
+const AddCart = document.getElementById("AddCart");
+AddCart.addEventListener("click" , (e)=>{
+    e.preventDefault();
+    RejexModel();
+
+})
+
+
+
+
