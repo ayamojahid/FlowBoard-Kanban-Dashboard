@@ -12,14 +12,22 @@ export function getCards() {
 
         })
        
-        .catch(error => {
-            console.log(error);
-             console.error( "error throw" , error);
-        });
 }
 
 
+export function getFilteredCards(filters) {
 
+    const params = new URLSearchParams(filters);
+
+    return fetch(`https://flowboard-api-virid.vercel.app/cards?${params}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.status);
+            }
+
+            return response.json();
+        });
+}
 
 
 // fetch("https://flowboard-api-virid.vercel.app/cards")
