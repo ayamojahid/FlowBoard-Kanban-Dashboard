@@ -336,59 +336,61 @@ ValidationForm();
 
 
 
-function SearchCard() {
+function Filter() {
 
-
-  const priority = document.getElementById("prioriteS");
+    const priority = document.getElementById("prioriteS");
     const member = document.getElementById("MemberS");
     const search = document.getElementById("search");
     const emptyMessage = document.getElementById("emptyMessage");
-  
-    function Filter() {
 
-        const filters = {};
+    const filters = {};
 
-        if (priority.value !== "all") {
-            filters.priority = priority.value;
-        }
-
-        if (member.value !== "all") {
-            filters.assignee = member.value;
-        }
-
-        if (search.value.trim() !== "") {
-            filters.q = search.value.trim();
-        }
-
-        getFilteredCards(filters).then(data => {
-
-            state.cards = data;
-
-            CounterCards();
-            AfficherCards();
-
-            emptyMessage.hidden = data.length !== 0;
-
-        });
+    if (priority.value !== "all") {
+        filters.priority = priority.value;
     }
 
-    priority.addEventListener("change", Filter);
-    member.addEventListener("change", Filter);
-    search.addEventListener("input", Filter);
+    if (member.value !== "all") {
+        filters.assignee = member.value;
+    }
 
-        const reset = document.getElementById("resetFilters");
+    if (search.value.trim() !== "") {
+        filters.q = search.value.trim();
+    }
 
-    reset.addEventListener("click", () => {
-        priority.value = "all";
-        member.value = "all";
-        search.value = "";
-        Filter();
+    getFilteredCards(filters).then(data => {
+
+        state.cards = data;
+
+        CounterCards();
+        AfficherCards();
+
+        emptyMessage.hidden = data.length !== 0;
+
     });
 }
 
 
 
+
+function SearchCard() {
+
+    const priority = document.getElementById("prioriteS");
+    const member = document.getElementById("MemberS");
+    const search = document.getElementById("search");
+    const reset = document.getElementById("resetFilters");
+
+    priority.addEventListener("change", Filter);
+    member.addEventListener("change", Filter);
+    search.addEventListener("input", Filter);
+
+    reset.addEventListener("click", () => {
+
+        priority.value = "all";
+        member.value = "all";
+        search.value = "";
+
+        Filter();
+    });
+}
+
 SearchCard();
-
-
-
