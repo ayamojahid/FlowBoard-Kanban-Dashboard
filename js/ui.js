@@ -16,7 +16,7 @@ console.log(retry);
 function loadCards() {
     errordiv.hidden = true;
 
-    //   loading div
+  
     loadingDiv.hidden = false;
 
     getCards()
@@ -26,7 +26,7 @@ function loadCards() {
             CounterCards();
             AfficherCards();
         }
-            // , 7000
+          
         )
         .catch(error => {
             console.log(error);
@@ -62,10 +62,6 @@ function CounterCards() {
     SpanCountDone.textContent = doneCards.length;
 
 
-    // console.log("lenght all" ,  state.cards.length);
-    // console.log("lenght todo" , todoCards.length);
-    // console.log("lenght in" , progressCards.length);
-    // console.log("lenght done" ,doneCards.length);
 
     // console.log("Cards:", state.cards);
 

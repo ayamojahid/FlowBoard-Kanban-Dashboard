@@ -6,37 +6,23 @@ const api = axios.create({
     timeout: 5000
 });
 
-
-export function getCards() {
-
-    return new Promise((resolve, reject) => {
-
-        api.get("/cards")
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => {
-                reject(error);
-            });
-
-    });
+export async function getCardsWithAxios() {
+    try {
+        const response = await api.get("/cards");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 }
 
-
-
-export function getFilteredCards(filters) {
-
-    return new Promise((resolve, reject) => {
-
-        api.get("/cards", {
+export async function getFilteredCards(filters) {
+    try {
+        const response = await api.get("/cards", {
             params: filters
-        })
-        .then(response => {
-            resolve(response.data);
-        })
-        .catch(error => {
-            reject(error);
         });
 
-    });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 }
