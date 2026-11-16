@@ -1,76 +1,29 @@
-//import
-// import axios from "axios";
 
 console.log("UI.js est chargé !");
 
-import { getCards , getFilteredCards  } from "./api.js";
+let state;
 
 
-const state = {
-    cards: []
+export function setUIState(appState) {
+    state = appState;
 }
 
-const errordiv = document.getElementById("errorDiv");
-const loadingDiv = document.getElementById("loadingDiv")
-const retry = document.getElementById("retry");
-console.log(retry);
-
-function loadCards() {
-    errordiv.hidden = true;
-
-    //   loading div
-    loadingDiv.hidden = false;
-
-    getCards()
-        .then(data => {
-            state.cards = data;
-            loadingDiv.hidden = true;
-            CounterCards();
-            AfficherCards();
-        }
-            // , 7000
-        )
-        .catch(error => {
-            console.log(error);
-            errordiv.hidden = false;
-            loadingDiv.hidden = true;
-
-
-            console.error("error throw", error);
-        }
-        );
-}
-
-retry.addEventListener("click", () => {
-    loadCards();
-});
-
-loadCards();
 
 const SpanCountTodo = document.getElementById("SpanCountTodo");
 const SpanCountInProgress = document.getElementById("SpanCountInProgress");
 const SpanCountDone = document.getElementById("SpanCountDone");
 
 
-function CounterCards() {
+const todoList = document.getElementById("todo-list");
+const progressList = document.getElementById("progress-list");
+const doneList = document.getElementById("done-list");
+
+
+export function CounterCards() {
 
     const todoCards = state.cards.filter(card => card.status === "todo");
     const progressCards = state.cards.filter(card => card.status === "in-progress");
     const doneCards = state.cards.filter(card => card.status === "done");
-
-    // console.log("ana todoo card ", todoCards)
-    SpanCountTodo.textContent = todoCards.length;
-    SpanCountInProgress.textContent = progressCards.length;
-    SpanCountDone.textContent = doneCards.length;
-
-
-    // console.log("lenght all" ,  state.cards.length);
-    // console.log("lenght todo" , todoCards.length);
-    // console.log("lenght in" , progressCards.length);
-    // console.log("lenght done" ,doneCards.length);
-
-    // console.log("Cards:", state.cards);
-
 
     SpanCountTodo.textContent = todoCards.length;
     SpanCountInProgress.textContent = progressCards.length;
@@ -78,11 +31,7 @@ function CounterCards() {
 }
 
 
-const todoList = document.getElementById("todo-list");
-const progressList = document.getElementById("progress-list");
-const doneList = document.getElementById("done-list");
-
-function AfficherCards() {
+export function AfficherCards() {
 
     todoList.innerHTML = "";
     progressList.innerHTML = "";
@@ -91,29 +40,30 @@ function AfficherCards() {
     state.cards.forEach(opt => {
 
         if (opt.status === "todo") {
-            AfficherTaskCard(todoList, opt)
-
+            AfficherTaskCard(todoList, opt);
         }
 
         if (opt.status === "in-progress") {
-            AfficherTaskCard(progressList, opt)
-
+            AfficherTaskCard(progressList, opt);
         }
 
         if (opt.status === "done") {
-            AfficherTaskCard(doneList, opt)
+            AfficherTaskCard(doneList, opt);
         }
     });
-
-
 }
-
 
 
 function AfficherTaskCard(ListType, opt) {
 
     const div = document.createElement("div");
     const titleCard = document.createElement("h2");
+
+    const btnModifier = document.createElement("button");
+
+    btnModifier.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Modifier';
+
+    btnModifier.className = "bg-blue-500 text-white px-3 py-1 rounded-lg";
 
     div.className = "bg-white p-4 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition";
 
@@ -133,9 +83,9 @@ function AfficherTaskCard(ListType, opt) {
 
         <div class="flex justify-between text-sm mb-3">
             <strong>👤 ${opt.assignee}</strong>
-       <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold">
-    ${opt.priority}
-</span>
+            <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold">
+                ${opt.priority}
+            </span>
         </div>
 
         <p class="text-xs text-gray-400 mb-3">📅 ${opt.dueDate}</p>
@@ -149,49 +99,45 @@ function AfficherTaskCard(ListType, opt) {
 
         p.textContent = `#${tag}`;
 
-        div.appendChild(p);
+        div.append(p);
     });
+
+    btnModifier.className = "block bg-slate-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer";
+    div.appendChild(btnModifier);
 
     ListType.appendChild(div);
 }
 
 
-// partir pour model
 const cardModal = document.getElementById("cardModal");
-function Model() {
+
+export function Model() {
+
     const BoutonAjoutCard = document.getElementById("Bouton-Ajout-Card");
+
     BoutonAjoutCard.addEventListener("click", () => {
         cardModal.showModal();
     });
+
     const cancelModal = document.getElementById("cancelModal");
+
     cancelModal.addEventListener("click", () => {
         cardModal.close();
-    })
-
+    });
 }
-Model();
-
 
 
 
 const titleInput = document.querySelector("#title");
 const assigneeInput = document.querySelector("#assignee");
-
-
 const tagsInput = document.querySelector("#tags");
 const dueDateInput = document.querySelector("#dueDate");
-
 const priorityInput = document.querySelector("#priority");
 const statusInput = document.querySelector("#status");
-
 const descriptionText = document.querySelector("#description");
 
 
-function RejexModel() {
-
-
-    console.log(assigneeInput)
-
+export function RejexModel() {
 
     const RejexText = /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/;
     const RejexTags = /^[a-zA-ZÀ-ÿ\s,'-]{2,100}$/;
@@ -200,14 +146,10 @@ function RejexModel() {
     const ValidAssigne = RejexText.test(assigneeInput.value.trim());
     const ValidTags = RejexTags.test(tagsInput.value.trim());
 
-
-
-    // Les messages d'erreur
     const mesageErrorTitle = document.getElementById("mesageErrorTitle");
     const mesageErrorAssigne = document.getElementById("mesageErrorAssigne");
     const mesageErrorTags = document.getElementById("mesageErrorTags");
 
-    // Validation d titre
     if (ValidTitle) {
         titleInput.style.borderColor = "green";
         mesageErrorTitle.textContent = "";
@@ -216,7 +158,6 @@ function RejexModel() {
         mesageErrorTitle.textContent = "Invalid Title";
     }
 
-    // Validation d assigne
     if (ValidAssigne) {
         assigneeInput.style.borderColor = "green";
         mesageErrorAssigne.textContent = "";
@@ -225,7 +166,6 @@ function RejexModel() {
         mesageErrorAssigne.textContent = "Invalid Assignee";
     }
 
-    // Validation des tags
     if (ValidTags) {
         tagsInput.style.borderColor = "green";
         mesageErrorTags.textContent = "";
@@ -234,171 +174,55 @@ function RejexModel() {
         mesageErrorTags.textContent = "Invalid Tags";
     }
 
-
-    // valider la date 
-    const NewdueDate = new Date(dueDateInput.value)
+    const NewdueDate = new Date(dueDateInput.value);
     const CurrentDate = new Date();
 
     NewdueDate.setHours(0, 0, 0, 0);
     CurrentDate.setHours(0, 0, 0, 0);
 
     const ValiditeDate = NewdueDate >= CurrentDate;
-    console.log(ValiditeDate);
 
     if (ValiditeDate) {
         dueDateInput.style.borderColor = "green";
-
     } else {
         dueDateInput.style.borderColor = "red";
-
     }
-
-    // valider les selects
-
 
     const validatePriority = priorityInput.value !== "";
-    console.log(validatePriority);
-
     const validateStatus = statusInput.value !== "";
-    console.log(validateStatus);
 
-    if (validatePriority) {
-        priorityInput.style.borderColor = "green";
+    priorityInput.style.borderColor = validatePriority ? "green" : "red";
+    statusInput.style.borderColor = validateStatus ? "green" : "red";
 
-    } else {
-        priorityInput.style.borderColor = "red";
-
-    }
-
-    if (validateStatus) {
-        statusInput.style.borderColor = "green";
-
-    } else {
-        statusInput.style.borderColor = "red";
-
-    }
-
-
-    return ValidTitle && ValidAssigne && ValidTags && ValiditeDate && validateStatus && validatePriority;
+    return ValidTitle && ValidAssigne && ValidTags &&
+        ValiditeDate && validateStatus && validatePriority;
 }
 
 
 
+export function ValidationForm() {
 
+    const cardForm = document.getElementById("cardForm");
 
-function ValidationForm() {
-const cardForm = document.getElementById("cardForm");
+    cardForm.addEventListener("submit", (e) => {
 
-cardForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    if (RejexModel()) {
-        // console.log("hey");
+        if (RejexModel()) {
 
-        const newCard = {
-            title: titleInput.value,
-            assignee: assigneeInput.value,
-            tags: tagsInput.value.split(","),
-            description: descriptionText.value,
-            dueDate: dueDateInput.value,
-            priority: priorityInput.value,
-            status: statusInput.value
-        };
+            const newCard = {
+                title: titleInput.value,
+                assignee: assigneeInput.value,
+                tags: tagsInput.value.split(","),
+                description: descriptionText.value,
+                dueDate: dueDateInput.value,
+                priority: priorityInput.value,
+                status: statusInput.value
+            };
 
-        state.cards.push(newCard);
-        console.log( "type de tags" , typeof(newCard.tags));
-        console.log("ana new", newCard);
-        // console.log("satate ", state)
-        CounterCards();
-        AfficherCards();
+            console.log("ana new", newCard);
 
-Swal.fire({
-  title: "Carte ajouté avec succès !",
-  text: "Votre carte a été ajouté au Tableau Kanban",
- icon: "success",
-  confirmButtonText: "Parfait !",
-  confirmButtonColor: "#394B32"
-});
-        cardForm.reset();
-        cardModal.close();
-        
-    }
-
-});
-
-}
-
-ValidationForm();
-
-
-
-
-
-
-
-
-
-
-function Filter() {
-
-    const priority = document.getElementById("prioriteS");
-    const member = document.getElementById("MemberS");
-    const search = document.getElementById("search");
-    const emptyMessage = document.getElementById("emptyMessage");
-
-    const filters = {};
-
-    if (priority.value !== "all") {
-        filters.priority = priority.value;
-    }
-
-    if (member.value !== "all") {
-        filters.assignee = member.value;
-    }
-
-    if (search.value.trim() !== "") {
-        filters.q = search.value.trim();
-    }
-
-    getFilteredCards(filters)
-        .then(data => {
-
-            state.cards = data;
-
-            CounterCards();
-            AfficherCards();
-
-            emptyMessage.hidden = data.length !== 0;
-
-        })
-        .catch(error => {
-            console.error("Erreur Filter :", error);
-        });
-}
-
-
-
-
-
-function SearchCard() {
-
-    const priority = document.getElementById("prioriteS");
-    const member = document.getElementById("MemberS");
-    const search = document.getElementById("search");
-    const reset = document.getElementById("resetFilters");
-
-    priority.addEventListener("change", Filter);
-    member.addEventListener("change", Filter);
-    search.addEventListener("input", Filter);
-
-    reset.addEventListener("click", () => {
-
-        priority.value = "all";
-        member.value = "all";
-        search.value = "";
-
-        Filter();
+            return newCard;
+        }
     });
 }
-
-SearchCard();
