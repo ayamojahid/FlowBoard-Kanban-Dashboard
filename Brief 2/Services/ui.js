@@ -59,11 +59,7 @@ function AfficherTaskCard(ListType, opt) {
     const div = document.createElement("div");
     const titleCard = document.createElement("h2");
 
-    const btnModifier = document.createElement("button");
-
-    btnModifier.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Modifier';
-
-    btnModifier.className = "bg-blue-500 text-white px-3 py-1 rounded-lg";
+ 
 
     div.className = "bg-white p-4 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition";
 
@@ -102,9 +98,15 @@ function AfficherTaskCard(ListType, opt) {
         div.append(p);
     });
 
+    // creer de bouton modifier
+    const btnModifier = document.createElement("button");
+    btnModifier.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Modifier';
     btnModifier.className = "block bg-slate-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer";
+    btnModifier.dataset.id=opt.id;
+    btnModifier.addEventListener("click" , ()=>{
+        console.log(btnModifier.dataset)
+    })
     div.appendChild(btnModifier);
-
     ListType.appendChild(div);
 }
 
