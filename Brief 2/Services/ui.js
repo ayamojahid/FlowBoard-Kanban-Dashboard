@@ -1,12 +1,7 @@
 
-console.log("UI.js est chargé !");
-
-let state;
+console.log("UI.js travaille");
 
 
-export function setUIState(appState) {
-    state = appState;
-}
 
 
 const SpanCountTodo = document.getElementById("SpanCountTodo");
@@ -19,11 +14,11 @@ const progressList = document.getElementById("progress-list");
 const doneList = document.getElementById("done-list");
 
 
-export function CounterCards() {
+export function CounterCards(cards) {
 
-    const todoCards = state.cards.filter(card => card.status === "todo");
-    const progressCards = state.cards.filter(card => card.status === "in-progress");
-    const doneCards = state.cards.filter(card => card.status === "done");
+    const todoCards = cards.filter(card => card.status === "todo");
+    const progressCards = cards.filter(card => card.status === "in-progress");
+    const doneCards = cards.filter(card => card.status === "done");
 
     SpanCountTodo.textContent = todoCards.length;
     SpanCountInProgress.textContent = progressCards.length;
@@ -31,13 +26,13 @@ export function CounterCards() {
 }
 
 
-export function AfficherCards() {
+export function AfficherCards(cards) {
 
     todoList.innerHTML = "";
     progressList.innerHTML = "";
     doneList.innerHTML = "";
 
-    state.cards.forEach(opt => {
+    cards.forEach(opt => {
 
         if (opt.status === "todo") {
             AfficherTaskCard(todoList, opt);

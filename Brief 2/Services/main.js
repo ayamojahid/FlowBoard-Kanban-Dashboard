@@ -1,25 +1,23 @@
 
-console.log("Main.js est chargé !");
+console.log("Main.js est travaille");
 
 import {
     getCardsWithAxios,
-    getFilteredCards
+    getFilteredCards,
+    getelement,
+    modifierCard
 } from "./api.js";
 
 import {
-    setUIState,
     CounterCards,
     AfficherCards,
     Model,
     ValidationForm
 } from "./ui.js";
 
+let cards = [];
 
-const state = {
-    cards: []
-};
 
-setUIState(state);
 
 const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv");
@@ -34,12 +32,13 @@ function loadCards() {
     getCardsWithAxios()
         .then(data => {
 
-            state.cards = data;
+           cards = data;
 
             loadingDiv.hidden = true;
 
-            CounterCards();
-            AfficherCards();
+            CounterCards(cards);
+            AfficherCards(cards);
+
         })
         .catch(error => {
 
@@ -89,10 +88,10 @@ function Filter() {
     getFilteredCards(filters)
         .then(data => {
 
-            state.cards = data;
+            cards = data;
 
-            CounterCards();
-            AfficherCards();
+            CounterCards(cards);
+            AfficherCards(cards);
 
             emptyMessage.hidden = data.length !== 0;
 
@@ -130,46 +129,43 @@ SearchCard();
 loadCards();
 
 const sectionEdit = document.querySelector('section-todo');
-
-
-
-
-import  {getelement} from './api.js';
-
 const BtnAddCard = document.querySelector("#Btn-AddCard");
 
-
-
 let cardId = null;
-    document.addEventListener("click",async (e) => {
+
+
+const sectionTodo = document.querySelector("#section-todo");
+
+
+    sectionTodo.addEventListener("click",async (e) => {
        
         
     if (e.target.closest(".btnEditData")) {
     
         const btn = e.target.closest(".btnEditData");
-
-
         const id = btn.dataset.id;
 
-          BtnAddCard.hidden = true;
-
+        BtnAddCard.hidden = true;
+        
         document.getElementById("BtnModiferCarte").hidden = false;
 
         cardModal.showModal();
 
         const response = await getelement(id);
+         
+        // const {data} = await getelement(id);
 
         const card = response.data;
 
-        // console.log(btn.dataset.id);
-         
-        // getelement(btn.dataset.id);
-        // const data =  Response.data
-cardId = btn.dataset.id;
+        console.log("geele" + getelement(id))
+       
+       cardId = btn.dataset.id;
+      
         
-        console.log(card);
+        // console.log("ana data" , data);
+        // console.log("ana card" , card);
 
-        function elementModifierFromDta(card) {
+       
     document.querySelector('[name="title"]').value = card.title;
     document.querySelector('[name="description"]').value = card.description;
     document.querySelector('[name="assignee"]').value = card.assignee;
@@ -178,17 +174,39 @@ cardId = btn.dataset.id;
     document.querySelector('[name="dueDate"]').value = card.dueDate;
     document.querySelector('[name="tags"]').value = card.tags;
 
-}
-
-    elementModifierFromDta(card)
         
 
     }
 });
 
 
+
+
+
+
 BtnModiferCarte.addEventListener("click" , async()=>{
 
+   let cardData={
+    title :  document.querySelector('[name="title"]').value,
+    description : document.querySelector('[name="description"]').value,
+    assignee : document.querySelector('[name="assignee"]').value ,
+    status : document.querySelector('[name="status"]').value,
+    priority : document.querySelector('[name="priority"]').value,
+    dueDate :  document.querySelector('[name="dueDate"]').value ,
+    tags : document.querySelector('[name="tags"]').value.split(",")
+    }
+console.log("Assignee :", cardData.assignee);
+console.log("Toutes les données :", cardData);
+
+    const response = await modifierCard(cardId, cardData);
+console.log(response.data);
+    AfficherCards(cards);
+console.log(cardId)
+
+cardModal.close();
+location.reload();
 })
+
+
 
 

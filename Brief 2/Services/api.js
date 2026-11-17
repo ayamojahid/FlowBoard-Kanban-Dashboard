@@ -6,8 +6,10 @@ const api = axios.create({
     timeout: 5000 ,
      headers: {
     'X-Workspace': 'aya',
-     'password' : "1234" 
   },
+   params: {
+        password: "1234"
+    }
 });
 
 export async function getCardsWithAxios() {

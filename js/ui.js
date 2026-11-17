@@ -50,7 +50,7 @@ const SpanCountInProgress = document.getElementById("SpanCountInProgress");
 const SpanCountDone = document.getElementById("SpanCountDone");
 
 
-function CounterCards() {
+function CounterCards(cards) {
 
     const todoCards = state.cards.filter(card => card.status === "todo");
     const progressCards = state.cards.filter(card => card.status === "in-progress");
@@ -80,7 +80,7 @@ const todoList = document.getElementById("todo-list");
 const progressList = document.getElementById("progress-list");
 const doneList = document.getElementById("done-list");
 
-function AfficherCards() {
+function AfficherCards(cards) {
 
     todoList.innerHTML = "";
     progressList.innerHTML = "";
