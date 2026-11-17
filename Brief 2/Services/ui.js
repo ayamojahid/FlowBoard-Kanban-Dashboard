@@ -57,6 +57,7 @@ export function AfficherCards() {
 function AfficherTaskCard(ListType, opt) {
 
     const div = document.createElement("div");
+
     const titleCard = document.createElement("h2");
 
  
@@ -103,9 +104,10 @@ function AfficherTaskCard(ListType, opt) {
     btnModifier.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Modifier';
     btnModifier.className = "block bg-slate-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer";
     btnModifier.dataset.id=opt.id;
-    btnModifier.addEventListener("click" , ()=>{
-        console.log(btnModifier.dataset)
-    })
+    
+    btnModifier.classList.add("btnEditData")
+   
+  
     div.appendChild(btnModifier);
     ListType.appendChild(div);
 }

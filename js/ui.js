@@ -26,7 +26,7 @@ function loadCards() {
             CounterCards();
             AfficherCards();
         }
-            // , 7000
+          
         )
         .catch(error => {
             console.log(error);

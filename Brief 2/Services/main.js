@@ -128,3 +128,67 @@ SearchCard();
 
 
 loadCards();
+
+const sectionEdit = document.querySelector('section-todo');
+
+
+
+
+import  {getelement} from './api.js';
+
+const BtnAddCard = document.querySelector("#Btn-AddCard");
+
+
+
+let cardId = null;
+    document.addEventListener("click",async (e) => {
+       
+        
+    if (e.target.closest(".btnEditData")) {
+    
+        const btn = e.target.closest(".btnEditData");
+
+
+        const id = btn.dataset.id;
+
+          BtnAddCard.hidden = true;
+
+        document.getElementById("BtnModiferCarte").hidden = false;
+
+        cardModal.showModal();
+
+        const response = await getelement(id);
+
+        const card = response.data;
+
+        // console.log(btn.dataset.id);
+         
+        // getelement(btn.dataset.id);
+        // const data =  Response.data
+cardId = btn.dataset.id;
+        
+        console.log(card);
+
+        function elementModifierFromDta(card) {
+    document.querySelector('[name="title"]').value = card.title;
+    document.querySelector('[name="description"]').value = card.description;
+    document.querySelector('[name="assignee"]').value = card.assignee;
+    document.querySelector('[name="status"]').value = card.status;
+    document.querySelector('[name="priority"]').value = card.priority;
+    document.querySelector('[name="dueDate"]').value = card.dueDate;
+    document.querySelector('[name="tags"]').value = card.tags;
+
+}
+
+    elementModifierFromDta(card)
+        
+
+    }
+});
+
+
+BtnModiferCarte.addEventListener("click" , async()=>{
+
+})
+
+
