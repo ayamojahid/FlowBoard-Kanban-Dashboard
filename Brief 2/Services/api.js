@@ -33,6 +33,8 @@ export async function getFilteredCards(filters) {
     }
 }
 
+
+//modification des card 
 export async function getelement(id) {
     return await api.get("/cards/"+id)
 }

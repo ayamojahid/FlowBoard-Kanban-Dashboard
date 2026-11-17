@@ -28,6 +28,9 @@ export function CounterCards(cards) {
 
 export function AfficherCards(cards) {
 
+ 
+
+    
     todoList.innerHTML = "";
     progressList.innerHTML = "";
     doneList.innerHTML = "";
@@ -36,6 +39,7 @@ export function AfficherCards(cards) {
 
         if (opt.status === "todo") {
             AfficherTaskCard(todoList, opt);
+            
         }
 
         if (opt.status === "in-progress") {
@@ -46,8 +50,11 @@ export function AfficherCards(cards) {
             AfficherTaskCard(doneList, opt);
         }
     });
+
+    
 }
 
+    const div = document.createElement("div");
 
 function AfficherTaskCard(ListType, opt) {
 
@@ -81,6 +88,7 @@ function AfficherTaskCard(ListType, opt) {
         </div>
 
         <p class="text-xs text-gray-400 mb-3">📅 ${opt.dueDate}</p>
+      
     `;
 
     opt.tags.forEach((tag) => {
@@ -100,11 +108,40 @@ function AfficherTaskCard(ListType, opt) {
     btnModifier.className = "block bg-slate-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer";
     btnModifier.dataset.id=opt.id;
     
+
     btnModifier.classList.add("btnEditData")
    
   
     div.appendChild(btnModifier);
     ListType.appendChild(div);
+
+    const divBtnPrecNext =document.createElement('div');
+    divBtnPrecNext.classList="flex mt-3 justify-between "
+ const btnPrecedent = document.createElement("button");
+btnPrecedent.className = "btnPrecedent bg-blue-50 hover:bg-blue-100 text-blue-700 p-2 rounded-lg transition";
+btnPrecedent.innerHTML = '<i class="fa-solid fa-circle-arrow-left text-slate-600"></i>';
+
+
+    const btnNext = document.createElement("button");
+    btnNext.className = "btnNext bg-blue-50 hover:bg-blue-100 text-blue-700 p-2 rounded-lg transition";
+    btnNext.innerHTML = '<i class="fa-solid fa-circle-arrow-right  text-slate-600"></i>';
+
+    
+
+    if(opt.status == "todo") {
+        divBtnPrecNext.append(btnNext)
+         div.appendChild(divBtnPrecNext);
+    }
+    else if (opt.status === "in-progress") {
+        divBtnPrecNext.append(btnPrecedent , btnNext)
+    div.append(divBtnPrecNext);
+} 
+else if (opt.status === "done") {
+        divBtnPrecNext.append(btnPrecedent)
+
+    div.appendChild(divBtnPrecNext);
+}
+
 }
 
 
