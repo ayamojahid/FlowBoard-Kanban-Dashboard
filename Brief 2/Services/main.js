@@ -5,6 +5,7 @@ import {
     getCardsWithAxios,
     getFilteredCards,
     getelement,
+    miseAjourStatus,
     modifierCard
 } from "./api.js";
 
@@ -97,7 +98,7 @@ function Filter() {
 
         })
         .catch(error => {
-            console.error("Erreur Filter :", error);
+            console.error("erreur de filter ", error);
         });
 }
 
@@ -135,30 +136,21 @@ let cardId = null;
 
 
 const sectionTodo = document.querySelector("#section-todo");
-
-
     sectionTodo.addEventListener("click",async (e) => {
-       
-        
     if (e.target.closest(".btnEditData")) {
     
         const btn = e.target.closest(".btnEditData");
         const id = btn.dataset.id;
 
         BtnAddCard.hidden = true;
-        
         document.getElementById("BtnModiferCarte").hidden = false;
-
         cardModal.showModal();
-
         const response = await getelement(id);
          
         // const {data} = await getelement(id);
 
         const card = response.data;
-
         console.log("geele" + getelement(id))
-       
        cardId = btn.dataset.id;
       
         
@@ -208,5 +200,33 @@ location.reload();
 })
 
 
+sectionTodo.addEventListener("click" ,async (e)=>{
+    
+     const btn = e.target.closest(".btnNext");
+
+    if (btn) {
+        console.log(btn.dataset.id);
+    
+          const element =cards.find((opt)=>{
+            return opt.id == btn.dataset.id
+          }) 
+          console.log(element);
+          if(element.status ==="todo") {
+            element.status = "in-progress"
+          }
+           else if (element.status === "in-progress") {
+            element.status = "done";
+        }
+
+ await miseAjourStatus(element.id , element.status);
+ console.log("id", element.id);
+console.log("status", element.status);
+ AfficherCards(cards);
+CounterCards(cards);
+location.reload();
+
+    }
+
+})
 
 

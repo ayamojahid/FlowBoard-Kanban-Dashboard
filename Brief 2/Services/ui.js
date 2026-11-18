@@ -116,16 +116,18 @@ function AfficherTaskCard(ListType, opt) {
     ListType.appendChild(div);
 
     const divBtnPrecNext =document.createElement('div');
-    divBtnPrecNext.classList="flex mt-3 justify-between "
+    divBtnPrecNext.classList=" flex mt-3 justify-between "
+
  const btnPrecedent = document.createElement("button");
 btnPrecedent.className = "btnPrecedent bg-blue-50 hover:bg-blue-100 text-blue-700 p-2 rounded-lg transition";
 btnPrecedent.innerHTML = '<i class="fa-solid fa-circle-arrow-left text-slate-600"></i>';
+btnPrecedent.dataset.id = opt.id;
 
 
     const btnNext = document.createElement("button");
     btnNext.className = "btnNext bg-blue-50 hover:bg-blue-100 text-blue-700 p-2 rounded-lg transition";
     btnNext.innerHTML = '<i class="fa-solid fa-circle-arrow-right  text-slate-600"></i>';
-
+btnNext.dataset.id = opt.id;
     
 
     if(opt.status == "todo") {
