@@ -202,13 +202,14 @@ location.reload();
 
 sectionTodo.addEventListener("click" ,async (e)=>{
     
-     const btn = e.target.closest(".btnNext");
+     const btnNext = e.target.closest(".btnNext");
+     const btnbtnPrecedent = e.target.closest(".btnPrecedent");
 
-    if (btn) {
-        console.log(btn.dataset.id);
+    if (btnNext) {
+        console.log(btnNext.dataset.id);
     
           const element =cards.find((opt)=>{
-            return opt.id == btn.dataset.id
+            return opt.id == btnNext.dataset.id
           }) 
           console.log(element);
           if(element.status ==="todo") {
@@ -219,6 +220,30 @@ sectionTodo.addEventListener("click" ,async (e)=>{
         }
 
  await miseAjourStatus(element.id , element.status);
+ console.log("id", element.id);
+console.log("status", element.status);
+ AfficherCards(cards);
+CounterCards(cards);
+location.reload();
+
+    }
+
+    if(btnbtnPrecedent) {
+        console.log(btnbtnPrecedent.dataset.id);
+           const element =cards.find((opt)=>{
+            return opt.id == btnbtnPrecedent.dataset.id
+          }) 
+              console.log(element);
+        
+                if (element.status === "done") {
+        element.status = "in-progress";
+    }
+    else if (element.status === "in-progress") {
+        element.status = "todo";
+    }
+
+
+         await miseAjourStatus(element.id , element.status);
  console.log("id", element.id);
 console.log("status", element.status);
  AfficherCards(cards);
