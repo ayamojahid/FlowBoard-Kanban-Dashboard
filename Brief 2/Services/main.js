@@ -30,6 +30,7 @@ function loadCards() {
 
     errordiv.hidden = true;
     loadingDiv.hidden = false;
+    
 
     getCardsWithAxios()
         .then(data => {
@@ -225,7 +226,7 @@ sectionTodo.addEventListener("click" ,async (e)=>{
 console.log("status", element.status);
  AfficherCards(cards);
 CounterCards(cards);
-location.reload();
+
 
     }
 
@@ -249,10 +250,31 @@ location.reload();
 console.log("status", element.status);
  AfficherCards(cards);
 CounterCards(cards);
-location.reload();
 
     }
 
 })
 
+
+sectionTodo.addEventListener("click" , async(e)=>{
+
+    
+// console.log(e.target.closest(".btnSupprimer"))
+const btnSupprimerElement = e.target.closest(".btnSupprimer");
+if(btnSupprimerElement){
+// console.log(btnSupprimerElement.dataset.id);
+
+const idbtnId = btnSupprimerElement.dataset.id;
+// console.log(idbtnId)
+
+
+let  cardsSup = cards.filter((opt) => opt.id != idbtnId);
+
+const funSupprimer = await deleteCard(idbtnId);
+AfficherCards(cardsSup)
+CounterCards(cardsSup)
+
+}
+
+})
 

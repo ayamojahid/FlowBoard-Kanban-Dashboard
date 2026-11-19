@@ -23,10 +23,12 @@ export function CounterCards(cards) {
     SpanCountTodo.textContent = todoCards.length;
     SpanCountInProgress.textContent = progressCards.length;
     SpanCountDone.textContent = doneCards.length;
+
 }
 
 
 export function AfficherCards(cards) {
+
 
  
 
@@ -114,7 +116,7 @@ function AfficherTaskCard(ListType, opt) {
       const btnSupprimer = document.createElement("button");
       
       btnSupprimer.innerHTML='<i class="fa-solid fa-trash-can"></i>Supprimer'
-      btnSupprimer.className="block bg-red-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer"
+      btnSupprimer.className="btnSupprimer block bg-red-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer"
       btnSupprimer.dataset.id=opt.id;
 
 
