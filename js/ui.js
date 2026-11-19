@@ -1,12 +1,10 @@
-//import
-
 
 import { getCards , getFilteredCards  } from "./api.js";
 
 
-const state = {
-    cards: []
-}
+
+
+let cards = [];
 
 const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv")
@@ -21,12 +19,12 @@ function loadCards() {
 
     getCards()
         .then(data => {
-            state.cards = data;
+            cards = data;
             loadingDiv.hidden = true;
-            CounterCards();
-            AfficherCards();
+            CounterCards(cards);
+            AfficherCards(cards);
         }
-            // , 7000
+          
         )
         .catch(error => {
             console.log(error);
@@ -50,11 +48,11 @@ const SpanCountInProgress = document.getElementById("SpanCountInProgress");
 const SpanCountDone = document.getElementById("SpanCountDone");
 
 
-function CounterCards() {
+function CounterCards(cards) {
 
-    const todoCards = state.cards.filter(card => card.status === "todo");
-    const progressCards = state.cards.filter(card => card.status === "in-progress");
-    const doneCards = state.cards.filter(card => card.status === "done");
+    const todoCards = cards.filter(card => card.status === "todo");
+    const progressCards = cards.filter(card => card.status === "in-progress");
+    const doneCards = cards.filter(card => card.status === "done");
 
     // console.log("ana todoo card ", todoCards)
     SpanCountTodo.textContent = todoCards.length;
@@ -62,12 +60,12 @@ function CounterCards() {
     SpanCountDone.textContent = doneCards.length;
 
 
-    // console.log("lenght all" ,  state.cards.length);
+    // console.log("lenght all" ,  cards.length);
     // console.log("lenght todo" , todoCards.length);
     // console.log("lenght in" , progressCards.length);
     // console.log("lenght done" ,doneCards.length);
 
-    // console.log("Cards:", state.cards);
+    // console.log("Cards:", cards);
 
 
     SpanCountTodo.textContent = todoCards.length;
@@ -80,13 +78,13 @@ const todoList = document.getElementById("todo-list");
 const progressList = document.getElementById("progress-list");
 const doneList = document.getElementById("done-list");
 
-function AfficherCards() {
+function AfficherCards(cards) {
 
     todoList.innerHTML = "";
     progressList.innerHTML = "";
     doneList.innerHTML = "";
 
-    state.cards.forEach(opt => {
+    cards.forEach(opt => {
 
         if (opt.status === "todo") {
             AfficherTaskCard(todoList, opt)
@@ -303,10 +301,10 @@ cardForm.addEventListener("submit", (e) => {
             status: statusInput.value
         };
 
-        state.cards.push(newCard);
+        cards.push(newCard);
         console.log( "type de tags" , typeof(newCard.tags));
         console.log("ana new", newCard);
-        // console.log("satate ", state)
+     
         CounterCards();
         AfficherCards();
 
@@ -336,59 +334,61 @@ ValidationForm();
 
 
 
-function SearchCard() {
+function Filter() {
 
-
-  const priority = document.getElementById("prioriteS");
+    const priority = document.getElementById("prioriteS");
     const member = document.getElementById("MemberS");
     const search = document.getElementById("search");
     const emptyMessage = document.getElementById("emptyMessage");
-  
-    function Filter() {
 
-        const filters = {};
+    const filters = {};
 
-        if (priority.value !== "all") {
-            filters.priority = priority.value;
-        }
-
-        if (member.value !== "all") {
-            filters.assignee = member.value;
-        }
-
-        if (search.value.trim() !== "") {
-            filters.q = search.value.trim();
-        }
-
-        getFilteredCards(filters).then(data => {
-
-            state.cards = data;
-
-            CounterCards();
-            AfficherCards();
-
-            emptyMessage.hidden = data.length !== 0;
-
-        });
+    if (priority.value !== "all") {
+        filters.priority = priority.value;
     }
 
-    priority.addEventListener("change", Filter);
-    member.addEventListener("change", Filter);
-    search.addEventListener("input", Filter);
+    if (member.value !== "all") {
+        filters.assignee = member.value;
+    }
 
-        const reset = document.getElementById("resetFilters");
+    if (search.value.trim() !== "") {
+        filters.q = search.value.trim();
+    }
 
-    reset.addEventListener("click", () => {
-        priority.value = "all";
-        member.value = "all";
-        search.value = "";
-        Filter();
+    getFilteredCards(filters).then(data => {
+
+        cards = data;
+
+        CounterCards();
+        AfficherCards();
+
+        emptyMessage.hidden = data.length !== 0;
+
     });
 }
 
 
 
+
+function SearchCard() {
+
+    const priority = document.getElementById("prioriteS");
+    const member = document.getElementById("MemberS");
+    const search = document.getElementById("search");
+    const reset = document.getElementById("resetFilters");
+
+    priority.addEventListener("change", Filter);
+    member.addEventListener("change", Filter);
+    search.addEventListener("input", Filter);
+
+    reset.addEventListener("click", () => {
+
+        priority.value = "all";
+        member.value = "all";
+        search.value = "";
+
+        Filter();
+    });
+}
+
 SearchCard();
-
-
-
