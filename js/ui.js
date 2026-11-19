@@ -1,12 +1,10 @@
-//import
-// import axios from "axios";
 
 import { getCards , getFilteredCards  } from "./api.js";
 
 
-const state = {
-    cards: []
-}
+
+
+let cards = [];
 
 const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv")
@@ -21,10 +19,10 @@ function loadCards() {
 
     getCards()
         .then(data => {
-            state.cards = data;
+            cards = data;
             loadingDiv.hidden = true;
-            CounterCards();
-            AfficherCards();
+            CounterCards(cards);
+            AfficherCards(cards);
         }
           
         )
@@ -52,9 +50,9 @@ const SpanCountDone = document.getElementById("SpanCountDone");
 
 function CounterCards(cards) {
 
-    const todoCards = state.cards.filter(card => card.status === "todo");
-    const progressCards = state.cards.filter(card => card.status === "in-progress");
-    const doneCards = state.cards.filter(card => card.status === "done");
+    const todoCards = cards.filter(card => card.status === "todo");
+    const progressCards = cards.filter(card => card.status === "in-progress");
+    const doneCards = cards.filter(card => card.status === "done");
 
     // console.log("ana todoo card ", todoCards)
     SpanCountTodo.textContent = todoCards.length;
@@ -62,12 +60,12 @@ function CounterCards(cards) {
     SpanCountDone.textContent = doneCards.length;
 
 
-    // console.log("lenght all" ,  state.cards.length);
+    // console.log("lenght all" ,  cards.length);
     // console.log("lenght todo" , todoCards.length);
     // console.log("lenght in" , progressCards.length);
     // console.log("lenght done" ,doneCards.length);
 
-    // console.log("Cards:", state.cards);
+    // console.log("Cards:", cards);
 
 
     SpanCountTodo.textContent = todoCards.length;
@@ -86,7 +84,7 @@ function AfficherCards(cards) {
     progressList.innerHTML = "";
     doneList.innerHTML = "";
 
-    state.cards.forEach(opt => {
+    cards.forEach(opt => {
 
         if (opt.status === "todo") {
             AfficherTaskCard(todoList, opt)
@@ -303,10 +301,10 @@ cardForm.addEventListener("submit", (e) => {
             status: statusInput.value
         };
 
-        state.cards.push(newCard);
+        cards.push(newCard);
         console.log( "type de tags" , typeof(newCard.tags));
         console.log("ana new", newCard);
-        // console.log("satate ", state)
+     
         CounterCards();
         AfficherCards();
 
@@ -359,7 +357,7 @@ function Filter() {
 
     getFilteredCards(filters).then(data => {
 
-        state.cards = data;
+        cards = data;
 
         CounterCards();
         AfficherCards();

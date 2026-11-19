@@ -91,6 +91,19 @@
 
 <p id="emptyMessageDeSuppression" class="text-red-600" ></p>
 
+<section class="GenarationWithAI">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
+
+ <button id="Bouton-Ajout-Card-withIA"
+                    class= " cursor-pointer bg-[#394B32] hover:bg-[#293923] transition text-white font-semibold rounded-xl px-5 py-3 flex items-center justify-center gap-2 shadow-sm">
+
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvelle Carte Générer avec l'IA
+
+                </button>
+                </div>
+</section>
+
         <section class="px-6 md:px-10 py-6">
 
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -320,6 +333,32 @@
             </div>
         </dialog>
 
+
+
+        <dialog id="dialogAI">
+            <form id="FormAi">
+             <div>
+                        <label for="descriptionduprojet" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Description du projet *
+                        </label>
+                        <textarea id="descriptionduprojet" name="descriptionduprojet" rows="3" placeholder="Décrire la tâche..."
+                             
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none "></textarea>
+                    </div>
+
+                       <div>
+                        <label for="Countduelement" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Count * </label>
+                        <input type="number" name="countAiNumber" >
+                    </div>
+
+                    <div class="Bouton">
+                    <button id="sendDataAi" type="submit" class="bg-amber-950 text-amber-50 rounded-1xl">Envoyer</button>
+                    <button id="closeBtn" type="button" class="bg-red-600 text-cyan-50 rounded-1xl">Close</button>
+                    </div>
+</form>
+                    
+        </dialog>
 
     </main>
 </body>
