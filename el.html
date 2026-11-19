@@ -4,8 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     
 </body>
+
+
+
+
+
+
+
+
+
+<script>
+
+// async function recupererDate() {
+//     const response = await axios.get("https://flowboard-api-virid.vercel.app/cards");
+//     return response.data
+// }
+
+
+// async function addicher() {
+//     try{
+//         const card = await recupererDate();
+//         console.log(card)
+//     }
+//     catch(error){
+//         console.log(error)
+//     }
+// }
+// addicher() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function getCard(){
+    const response = await axios.get("https://flowboard-api-virid.vercel.app/cards")
+   return response.data
+}
+
+async function afficher() {
+    try{
+        const data = await getCard();
+        console.log(data)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+afficher() 
+</script>
 </html>

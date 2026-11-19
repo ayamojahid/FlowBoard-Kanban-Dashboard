@@ -50,4 +50,5 @@ export async function deleteCard(id) {
 
 export async function AffichageAvecAI(elementCard) {
     const response = await api.post("/ai/cards", elementCard);
+    return response.data
 }

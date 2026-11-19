@@ -7,7 +7,8 @@ import {
     getelement,
     miseAjourStatus,
     modifierCard,
-    deleteCard
+    deleteCard,
+    AffichageAvecAI
 } from "./api.js";
 
 import {
@@ -331,3 +332,44 @@ Swal.fire({
 
 
 
+// generalisation   avec ai
+
+const btnAjAI = document.querySelector("#Bouton-Ajout-Card-withIA");
+const dialogAI = document.querySelector("#dialogAI");
+
+btnAjAI.addEventListener("click", () => {
+    dialogAI.showModal();
+});
+
+const closeBtn = document.querySelector("#closeBtn");
+
+closeBtn.addEventListener("click", () => {
+    dialogAI.close();
+});
+
+
+const FormAi = document.querySelector("#FormAi");
+
+FormAi.addEventListener("submit" ,async (e)=>{
+e.preventDefault();
+
+// console.log("salaa")
+
+const objetAi = {
+description : document.querySelector('[name ="descriptionduprojet"]').value ,
+ apiKey: 'AQ.Ab8RN6JDy95uRumg14w9pGxSyo9Pfk1mYqlPuRLhaG1Pm232Ng' ,
+count : Number(document.querySelector('[name="countAiNumber"]').value)
+}
+
+ console.log(objetAi)
+
+try{
+    const nouvelleCard = await AffichageAvecAI(objetAi)
+    console.log(nouvelleCard)
+}
+catch(error) {
+    console.log(error)
+
+}
+
+})
