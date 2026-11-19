@@ -50,3 +50,7 @@ export async function miseAjourStatus(id, status) {
         status: status
     });
 }
+
+export async function deleteCard(id) {
+    return await api.delete("/cards/"+id) 
+}

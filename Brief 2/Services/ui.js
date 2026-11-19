@@ -110,9 +110,16 @@ function AfficherTaskCard(ListType, opt) {
     
 
     btnModifier.classList.add("btnEditData")
-   
-  
-    div.appendChild(btnModifier);
+
+      const btnSupprimer = document.createElement("button");
+      
+      btnSupprimer.innerHTML='<i class="fa-solid fa-trash-can"></i>Supprimer'
+      btnSupprimer.className="block bg-red-700 text-white px-3 py-1 rounded-lg mt-4 cursor-pointer"
+      btnSupprimer.dataset.id=opt.id;
+
+
+    div.append(btnModifier , btnSupprimer);
+    
     ListType.appendChild(div);
 
     const divBtnPrecNext =document.createElement('div');

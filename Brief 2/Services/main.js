@@ -6,7 +6,8 @@ import {
     getFilteredCards,
     getelement,
     miseAjourStatus,
-    modifierCard
+    modifierCard,
+    deleteCard
 } from "./api.js";
 
 import {
