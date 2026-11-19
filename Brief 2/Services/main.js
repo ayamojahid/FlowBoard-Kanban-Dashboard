@@ -354,7 +354,7 @@ e.preventDefault();
 
 const objetAi = {
 description : document.querySelector('[name ="descriptionduprojet"]').value ,
-apiKey: 'AQ.Ab8RN6JDy95uRumg14w9pGxSyo9Pfk1mYqlPuRLhaG1Pm232Ng',
+apiKey: '',
 count : Number(document.querySelector('[name="countAiNumber"]').value)
 }
 
