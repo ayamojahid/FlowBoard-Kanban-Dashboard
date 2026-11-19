@@ -1,11 +1,12 @@
 
 import axios from "https://cdn.jsdelivr.net/npm/axios@1.7.9/+esm";
 
+
 const api = axios.create({
     baseURL: "https://flowboard-api-virid.vercel.app",
     timeout: 5000 ,
      headers: {
-    'X-Workspace': 'ayaMojahid',
+    'X-Workspace': 'salma',
     'Content-Type': 'application/json'
   },
    params: {
@@ -14,24 +15,15 @@ const api = axios.create({
 });
 
 export async function getCardsWithAxios() {
-    try {
         const response = await api.get("/cards");
         return response.data;
-    } catch (error) {
-        throw error;
-    }
 }
 
 export async function getFilteredCards(filters) {
-    try {
         const response = await api.get("/cards", {
             params: filters
         });
-
         return response.data;
-    } catch (error) {
-        throw error;
-    }
 }
 
 
@@ -52,5 +44,9 @@ export async function miseAjourStatus(id, status) {
 }
 
 export async function deleteCard(id) {
-    return await api.delete("/cards/"+id) 
+    return await api.delete("/cards/"+id)
+}
+
+export async function affichageDesEelemnt(id) {
+
 }

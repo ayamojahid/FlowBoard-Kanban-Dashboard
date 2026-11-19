@@ -17,7 +17,7 @@ import {
     ValidationForm
 } from "./ui.js";
 
-let cards = [];
+let cards = null;
 
 
 
@@ -25,38 +25,29 @@ const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv");
 const retry = document.getElementById("retry");
 
-
-function loadCards() {
-
-    errordiv.hidden = true;
+async function featchingCard() {
+    errordiv.hidden=true;
     loadingDiv.hidden = false;
-    
 
-    getCardsWithAxios()
-        .then(data => {
+    try{
+        const data = await getCardsWithAxios();
+        cards = data;
+        CounterCards(cards);
+        AfficherCards(cards);
 
-           cards = data;
+    }
+    catch{
+        errordiv.hidden = false;
+    }
+    finally{
+    loadingDiv.hidden = true;
+    }
 
-            loadingDiv.hidden = true;
-
-            CounterCards(cards);
-            AfficherCards(cards);
-
-        })
-        .catch(error => {
-
-            console.log(error);
-
-            errordiv.hidden = false;
-            loadingDiv.hidden = true;
-
-            console.error("error throw", error);
-        });
 }
 
 
 retry.addEventListener("click", () => {
-    loadCards();
+    featchingCard();
 });
 
 
@@ -100,7 +91,7 @@ function Filter() {
 
         })
         .catch(error => {
-            console.error("erreur de filter ", error);
+            console.error("erreur de filte est ", error);
         });
 }
 
@@ -129,9 +120,9 @@ function SearchCard() {
 SearchCard();
 
 
-loadCards();
+featchingCard();
 
-const sectionEdit = document.querySelector('section-todo');
+
 const BtnAddCard = document.querySelector("#Btn-AddCard");
 
 let cardId = null;
@@ -192,13 +183,20 @@ BtnModiferCarte.addEventListener("click" , async()=>{
 console.log("Assignee :", cardData.assignee);
 console.log("Toutes les données :", cardData);
 
-    const response = await modifierCard(cardId, cardData);
+
+const response = await modifierCard(cardId, cardData);
 console.log(response.data);
-    AfficherCards(cards);
-console.log(cardId)
+   
+console.log("je suis carte id de l'element " , cardId)
+
 
 cardModal.close();
-location.reload();
+Swal.fire({
+  title: "L'Element a ete Modifier Avec succes",
+  text: "You clicked the button!",
+  icon: "success"
+});
+featchingCard();
 })
 
 
@@ -224,8 +222,7 @@ sectionTodo.addEventListener("click" ,async (e)=>{
  await miseAjourStatus(element.id , element.status);
  console.log("id", element.id);
 console.log("status", element.status);
- AfficherCards(cards);
-CounterCards(cards);
+featchingCard()
 
 
     }
@@ -256,25 +253,81 @@ CounterCards(cards);
 })
 
 
-sectionTodo.addEventListener("click" , async(e)=>{
+
+
+// sectionTodo.addEventListener("click" , async(e)=>{
 
     
+// // console.log(e.target.closest(".btnSupprimer"))
+// const btnSupprimerElement = e.target.closest(".btnSupprimer");
+// if(btnSupprimerElement){
+// // console.log(btnSupprimerElement.dataset.id);
+
+// const idbtnId = btnSupprimerElement.dataset.id;
+// console.log(idbtnId)
+// try{
+
+// const funSupprimer = await deleteCard(idbtnId);
+// featchingCard() 
+
+// Swal.fire({
+//   title: "Element supprimer Avec succes",
+//   text: "You clicked the button!",
+//   icon: "success"
+// });
+
+// }
+// catch{
+//     console.log("elemement ne modifier pas");
+//     Swal.fire({
+//   title: "Element n'ont supprimer reassayer",
+//   text: "You clicked the button!",
+//   icon: "error"
+// });
+// }} })
+
+
+
+
+sectionTodo.addEventListener("click" , async(e)=>{
+const emptyMessageDeSuppression =document.getElementById("emptyMessageDeSuppression");
+    console.log(emptyMessageDeSuppression)
 // console.log(e.target.closest(".btnSupprimer"))
 const btnSupprimerElement = e.target.closest(".btnSupprimer");
 if(btnSupprimerElement){
 // console.log(btnSupprimerElement.dataset.id);
 
 const idbtnId = btnSupprimerElement.dataset.id;
-// console.log(idbtnId)
+console.log(idbtnId)
+
+Swal.fire({
+      title: "vous etre sur ",
+      text: "voulez vous suprimer la tache ",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui,suprime",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try{
+            emptyMessageDeSuppression.textContent=""
+        const funSupprimer = await deleteCard(idbtnId);
+          featchingCard() 
+        Swal.fire({
+          title: "Deleted!",
+          text: "Votre tache etait suprimée.",
+          icon: "success",
+        });
+        }
+        catch(error){
+            emptyMessageDeSuppression.textContent="  Erreur  Suppression nest pas fait"
+          console.log(  "Erreur de supprimer cette carte" )
+        }
+      }
+    });
+
+}})
 
 
-let  cardsSup = cards.filter((opt) => opt.id != idbtnId);
-
-const funSupprimer = await deleteCard(idbtnId);
-AfficherCards(cardsSup)
-CounterCards(cardsSup)
-
-}
-
-})
 
