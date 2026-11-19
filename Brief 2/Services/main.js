@@ -329,43 +329,5 @@ Swal.fire({
 
 }})
 
-// generalisation   avec ai
-
-const btnAjAI = document.querySelector("#Bouton-Ajout-Card-withIA");
-const dialogAI = document.querySelector("#dialogAI");
-
-btnAjAI.addEventListener("click", () => {
-    dialogAI.showModal();
-});
-
-const closeBtn = document.querySelector("#closeBtn");
-
-closeBtn.addEventListener("click", () => {
-    dialogAI.close();
-});
 
 
-const FormAi = document.querySelector("#FormAi");
-
-FormAi.addEventListener("submit" ,async (e)=>{
-e.preventDefault();
-
-// console.log("salama")
-
-const objetAi = {
-description : document.querySelector('[name ="descriptionduprojet"]').value ,
-apiKey: '',
-count : Number(document.querySelector('[name="countAiNumber"]').value)
-}
-
- console.log(objetAi)
-
-try{
-    const nouvelleCard = await AfficherCards(objetAi)
-    console.log(nouvelleCard)
-}
-catch(error) {
-    console.log("error")
-}
-
-})
