@@ -363,7 +363,7 @@ description : document.querySelector('[name ="descriptionduprojet"]').value ,
 count : Number(document.querySelector('[name="countAiNumber"]').value)
 }
 
- console.log(objetAi)
+
 
 try{
     const nouvelleCard = await AffichageAvecAI(objetAi)
