@@ -351,6 +351,9 @@ closeBtn.addEventListener("click", () => {
 
 const FormAi = document.querySelector("#FormAi");
 
+
+import {api} from "./ApiKey.js"
+
 FormAi.addEventListener("submit" ,async (e)=>{
 e.preventDefault();
 
