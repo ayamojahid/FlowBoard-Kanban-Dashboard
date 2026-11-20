@@ -3,7 +3,6 @@ import axios from "https://cdn.jsdelivr.net/npm/axios@1.7.9/+esm";
 
 const api = axios.create({
     baseURL: "https://flowboard-api-virid.vercel.app",
-    timeout: 5000 ,
      headers: {
     'X-Workspace': 'aya',
     'Content-Type': 'application/json'

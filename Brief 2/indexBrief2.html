@@ -335,13 +335,13 @@
 
 
 
-        <dialog id="dialogAI">
+        <dialog id="dialogAI" class="w-3xl h">
             <form id="FormAi">
              <div>
                         <label for="descriptionduprojet" class="block text-sm font-semibold text-gray-700 mb-1">
                             Description du projet *
                         </label>
-                        <textarea id="descriptionduprojet" name="descriptionduprojet" rows="3" placeholder="Décrire la tâche..."
+                        <textarea minlength="10" maxlength="2000" required id="descriptionduprojet" name="descriptionduprojet" rows="3" placeholder="Décrire la tâche..."
                              
                             class="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none "></textarea>
                     </div>
@@ -349,7 +349,7 @@
                        <div>
                         <label for="Countduelement" class="block text-sm font-semibold text-gray-700 mb-1">
                             Count * </label>
-                        <input type="number" name="countAiNumber" >
+                        <input type="number" name="countAiNumber" min="1" max="10" required>
                     </div>
 
                     <div class="Bouton">
