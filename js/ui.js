@@ -4,7 +4,7 @@ import { getCards , getFilteredCards  } from "./api.js";
 
 
 
-let cards = [];
+export let cards = null;
 
 const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv")
@@ -300,13 +300,15 @@ cardForm.addEventListener("submit", (e) => {
             priority: priorityInput.value,
             status: statusInput.value
         };
-
+console.log(cards)
         cards.push(newCard);
-        console.log( "type de tags" , typeof(newCard.tags));
+        console.log("imcard" , cards)
+
+        // console.log( "type de tags" , typeof(newCard.tags));
         console.log("ana new", newCard);
      
-        CounterCards();
-        AfficherCards();
+        CounterCards(cards);
+        AfficherCards(cards);
 
 Swal.fire({
   title: "Carte ajouté avec succès !",

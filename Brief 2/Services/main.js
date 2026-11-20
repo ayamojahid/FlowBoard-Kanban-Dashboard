@@ -18,7 +18,7 @@ import {
     ValidationForm
 } from "./ui.js";
 
-let cards = null;
+ let cards = null; 
 
 
 
@@ -314,6 +314,7 @@ Swal.fire({
         try{
             emptyMessageDeSuppression.textContent=""
         const funSupprimer = await deleteCard(idbtnId);
+        console.log(funSupprimer)
           featchingCard() 
         Swal.fire({
           title: "Deleted!",
@@ -356,12 +357,12 @@ e.preventDefault();
 // console.log("salaa")
 
 if(FormAi.checkValidity()) {
-
     const objetAi = {
 description : document.querySelector('[name ="descriptionduprojet"]').value ,
- apiKey: document.querySelector('[name="passwordApi"]').value ,
+ apiKey:api,
 count : Number(document.querySelector('[name="countAiNumber"]').value)
 }
+ console.log(objetAi)
 
 
 
@@ -369,6 +370,13 @@ try{
     const nouvelleCard = await AffichageAvecAI(objetAi)
     featchingCard()
     console.log(nouvelleCard)
+    featchingCard()
+    dialogAI.close();
+Swal.fire({
+  title: "Votre Carte a ete ajouter avec succes!",
+  text: "You clicked the button!",
+  icon: "success"
+});
 }
 catch(error) {
     console.log(error)
