@@ -249,27 +249,19 @@ export function RejexModel() {
 
 export function ValidationForm() {
 
-    const cardForm = document.getElementById("cardForm");
+    if (RejexModel()) {
 
-    cardForm.addEventListener("submit", (e) => {
+        const newCard = {
+            title: titleInput.value,
+            assignee: assigneeInput.value,
+            tags: tagsInput.value.split(","),
+            description: descriptionText.value,
+            dueDate: dueDateInput.value,
+            priority: priorityInput.value,
+            status: statusInput.value
+        };
 
-        e.preventDefault();
+        return newCard;
+    }
 
-        if (RejexModel()) {
-
-            const newCard = {
-                title: titleInput.value,
-                assignee: assigneeInput.value,
-                tags: tagsInput.value.split(","),
-                description: descriptionText.value,
-                dueDate: dueDateInput.value,
-                priority: priorityInput.value,
-                status: statusInput.value
-            };
-
-            console.log("ana new", newCard);
-
-            return newCard;
-        }
-    });
 }

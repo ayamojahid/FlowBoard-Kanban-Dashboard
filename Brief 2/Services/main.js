@@ -21,12 +21,25 @@ import {
  let cards = null; 
 
 
+const priority = document.getElementById("prioriteS");
+
+
+const member = document.getElementById("MemberS");
+
+
+const search = document.getElementById("search");
+
+
+priority.value = localStorage.getItem("priority") || "all";
+member.value = localStorage.getItem("assigne") || "all";
+search.value = localStorage.getItem("search") || "";
 
 const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv");
 const retry = document.getElementById("retry");
 
 async function featchingCard() {
+
     errordiv.hidden=true;
     loadingDiv.hidden = false;
 
@@ -68,16 +81,23 @@ function Filter() {
 
     const filters = {};
 
+       localStorage.setItem("priority", priority.value);
+    localStorage.setItem("assigne", member.value);
+    localStorage.setItem("search", search.value);
+
     if (priority.value !== "all") {
         filters.priority = priority.value;
+      
     }
 
     if (member.value !== "all") {
         filters.assignee = member.value;
+     
     }
 
     if (search.value.trim() !== "") {
         filters.q = search.value.trim();
+      
     }
 
     getFilteredCards(filters)
@@ -95,6 +115,40 @@ function Filter() {
             console.error("erreur de filte est ", error);
         });
 }
+
+
+
+cardForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    const newCard = ValidationForm();
+
+    if (newCard) {
+       
+        cards.push(newCard)
+        console.log("imcard" , cards)
+      
+              // console.log( "type de tags" , typeof(newCard.tags));
+              console.log("ana new", newCard);
+           
+              CounterCards(cards);
+              AfficherCards(cards);
+      
+      Swal.fire({
+        title: "Carte ajouté avec succès !",
+        text: "Votre carte a été ajouté au Tableau Kanban",
+       icon: "success",
+        confirmButtonText: "Parfait !",
+        confirmButtonColor: "#394B32"
+      });
+              cardForm.reset();
+              cardModal.close();
+              
+        
+    }
+});
+
 
 
 function SearchCard() {
