@@ -34,7 +34,7 @@ export async function modifierCard(id , cardData) {
     return await api.put("/cards/"+id , cardData)
 }
 
-// +9+
+// 
 export async function miseAjourStatus(id, status) {
     return await api.patch(`/cards/${id}`, {
         status: status
@@ -46,7 +46,7 @@ export async function deleteCard(id) {
 }
 
 
-
+//ai
 export async function AffichageAvecAI(elementCard) {
     const response = await api.post("/ai/cards", elementCard);
     return response.data

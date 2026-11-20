@@ -335,7 +335,7 @@
 
 
 
-        <dialog id="dialogAI" class="w-3xl h">
+        <dialog id="dialogAI" class="w-3xl h-7/9 rounded-2xl p-4 ">
             <form id="FormAi">
              <div>
                         <label for="descriptionduprojet" class="block text-sm font-semibold text-gray-700 mb-1">
@@ -349,12 +349,18 @@
                        <div>
                         <label for="Countduelement" class="block text-sm font-semibold text-gray-700 mb-1">
                             Count * </label>
-                        <input type="number" name="countAiNumber" min="1" max="10" required>
+                        <input type="number" name="countAiNumber" min="1" max="10" required class="outline-solid ">
                     </div>
 
-                    <div class="Bouton">
-                    <button id="sendDataAi" type="submit" class="bg-amber-950 text-amber-50 rounded-1xl">Envoyer</button>
-                    <button id="closeBtn" type="button" class="bg-red-600 text-cyan-50 rounded-1xl">Close</button>
+                     <div>
+                        <label for="Countduelement" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Password Api * </label>
+                        <input type="password" name="passwordApi"  required class="outline-solid ">
+
+
+                    <div class="Bouton flex-col justify-between gap-6.5 mt-10" >
+                    <button id="sendDataAi" type="submit" class="bg-amber-950 text-amber-50 rounded-1xl cursor-pointer">Envoyer</button>
+                    <button id="closeBtn" type="button" class="bg-red-600 text-cyan-50 rounded-1xl cursor-pointer">Close</button>
                     </div>
 </form>
                     

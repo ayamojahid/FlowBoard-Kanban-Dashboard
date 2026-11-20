@@ -359,7 +359,7 @@ if(FormAi.checkValidity()) {
 
     const objetAi = {
 description : document.querySelector('[name ="descriptionduprojet"]').value ,
-
+ apiKey: document.querySelector('[name="passwordApi"]').value ,
 count : Number(document.querySelector('[name="countAiNumber"]').value)
 }
 
