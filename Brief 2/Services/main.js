@@ -408,10 +408,11 @@ const FormAi = document.querySelector("#FormAi");
 
 import {api} from "./ApiKey.js"
 
+
+
 FormAi.addEventListener("submit" ,async (e)=>{
 e.preventDefault();
 
-// console.log("salaa")
 
 if(FormAi.checkValidity()) {
     const objetAi = {
@@ -420,24 +421,67 @@ description : document.querySelector('[name ="descriptionduprojet"]').value ,
 count : Number(document.querySelector('[name="countAiNumber"]').value)
 }
  console.log(objetAi)
+      dialogAI.close();
+
+
+Swal.fire ({
+title: 'Wait ...',
+ onBeforeOpen: () => {
+ Swal.showLoading ()
+ }
+})
+
 
 
 
 try{
     const nouvelleCard = await AffichageAvecAI(objetAi)
-    featchingCard()
+      dialogAI.close();
+   await featchingCard()
     console.log(nouvelleCard)
-    featchingCard()
-    dialogAI.close();
 Swal.fire({
   title: "Votre Carte a ete ajouter avec succes!",
   text: "You clicked the button!",
   icon: "success"
 });
 }
+
 catch(error) {
     console.log(error)
 
 }
 }
+})
+
+
+
+
+
+
+
+
+
+const btnDarkMode = document.getElementById('btnDarkMode');
+
+const savedTheme = localStorage.getItem("theme");
+
+if(savedTheme === "dark") {
+    document.body.classList.add("dark");
+    btnDarkMode.textContent = "light mode "
+}
+
+btnDarkMode.addEventListener('click' , ()=>{
+    document.body.classList.toggle('dark'); 
+
+    if(document.body.classList.contains('dark')){
+     localStorage.setItem("theme" , "dark");
+      btnDarkMode.textContent = "Light mode"
+    } 
+    else{
+         localStorage.setItem("theme" , "light");
+      btnDarkMode.textContent = " Dark mode"
+
+    }
+
+
 })
