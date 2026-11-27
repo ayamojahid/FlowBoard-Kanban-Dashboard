@@ -260,8 +260,51 @@ export function ValidationForm() {
             priority: priorityInput.value,
             status: statusInput.value
         };
-
         return newCard;
     }
+    
+}
 
+
+
+export function sessionS() {
+
+    titleInput.addEventListener("input", () => {
+        sessionStorage.setItem("title", titleInput.value);
+    });
+
+    assigneeInput.addEventListener("input", () => {
+        sessionStorage.setItem("assigne", assigneeInput.value);
+    });
+
+    tagsInput.addEventListener("input", () => {
+        sessionStorage.setItem("tags", tagsInput.value);
+    });
+
+    descriptionText.addEventListener("input", () => {
+        sessionStorage.setItem("description", descriptionText.value);
+    });
+
+    dueDateInput.addEventListener("change", () => {
+        sessionStorage.setItem("date", dueDateInput.value);
+    });
+
+    priorityInput.addEventListener("change", () => {
+        sessionStorage.setItem("priority", priorityInput.value);
+    });
+
+    statusInput.addEventListener("change", () => {
+        sessionStorage.setItem("status", statusInput.value);
+    });
+}
+
+
+export function getSession() {
+    titleInput.value = sessionStorage.getItem("title") || "";
+    assigneeInput.value = sessionStorage.getItem("assigne") || "";
+    tagsInput.value = sessionStorage.getItem("tags") || "";
+    descriptionText.value = sessionStorage.getItem("description") || "";
+    dueDateInput.value = sessionStorage.getItem("date") || "";
+    priorityInput.value = sessionStorage.getItem("priority") || "";
+    statusInput.value = sessionStorage.getItem("status") || "";
 }

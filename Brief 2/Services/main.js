@@ -15,11 +15,12 @@ import {
     CounterCards,
     AfficherCards,
     Model,
-    ValidationForm
+    ValidationForm,
+    sessionS,
+    getSession
 } from "./ui.js";
 
  let cards = null; 
-
 
 const priority = document.getElementById("prioriteS");
 
@@ -33,6 +34,9 @@ const search = document.getElementById("search");
 priority.value = localStorage.getItem("priority") || "all";
 member.value = localStorage.getItem("assigne") || "all";
 search.value = localStorage.getItem("search") || "";
+
+
+
 
 const errordiv = document.getElementById("errorDiv");
 const loadingDiv = document.getElementById("loadingDiv");
@@ -67,6 +71,8 @@ retry.addEventListener("click", () => {
 
 
 Model();
+sessionS();
+getSession()
 
 
 ValidationForm();
@@ -81,7 +87,7 @@ function Filter() {
 
     const filters = {};
 
-       localStorage.setItem("priority", priority.value);
+    localStorage.setItem("priority", priority.value);
     localStorage.setItem("assigne", member.value);
     localStorage.setItem("search", search.value);
 
@@ -127,10 +133,10 @@ cardForm.addEventListener("submit", (e) => {
     if (newCard) {
        
         cards.push(newCard)
-        console.log("imcard" , cards)
+        // console.log("imcard" , cards)
       
               // console.log( "type de tags" , typeof(newCard.tags));
-              console.log("ana new", newCard);
+            //   console.log("ana new", newCard);
            
               CounterCards(cards);
               AfficherCards(cards);
@@ -485,3 +491,8 @@ btnDarkMode.addEventListener('click' , ()=>{
 
 
 })
+
+
+
+
+
