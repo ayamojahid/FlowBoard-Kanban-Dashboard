@@ -1,1 +1,39 @@
-@import "tailwindcss";
+
+body {
+    background-color: white;
+    color: black;
+}
+
+
+body.dark {
+    background-color: #111;
+    color: white;
+}
+
+body.dark header {
+    background-color: #222;
+}
+
+body.dark dialog {
+    background-color: #222;
+    color: white;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+    background-color: #333;
+    color: white;
+}
+
+body.dark #AFaire {
+    background-color: #3b2f1a;
+}
+
+body.dark #EnCour {
+    background-color: #1a2a3b;
+}
+
+body.dark #Termine {
+    background-color: #1a3b24;
+}
